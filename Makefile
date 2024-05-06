@@ -64,3 +64,17 @@ lint: ## Run phpcs
 
 lint-fix: ## Run phpcbf
 	./vendor/bin/phpcbf --standard=ruleset.xml app/
+
+auth: 
+	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j9q6e1n9
+
+build-push:
+	make build
+	make push
+
+build:
+	docker build -t laravel-base-image .	
+
+push:
+	docker tag laravel-base-image:latest public.ecr.aws/j9q6e1n9/laravel-base-image:latest
+	docker push public.ecr.aws/j9q6e1n9/laravel-base-image:latest
