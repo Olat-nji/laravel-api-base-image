@@ -10,7 +10,7 @@ phases:
   pre_build:
     on-failure: ABORT
     commands:
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j9q6e1n9
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $REPOSITORY
   build:
     on-failure: ABORT
     commands:
